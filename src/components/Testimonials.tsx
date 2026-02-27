@@ -9,6 +9,7 @@ const testimonials = [
     niche: "Florist",
     text: "Alex completely transformed our online presence. Our new website is stunning and has doubled our online orders in just two months. The attention to detail and the smooth user experience is exactly what we needed.",
     rating: 5,
+    initials: "SM",
   },
   {
     name: "James Carter",
@@ -16,6 +17,7 @@ const testimonials = [
     niche: "SaaS",
     text: "Working with Alex was a game-changer. They delivered a modern, fast website that perfectly represents our brand. Our conversion rate jumped 40% after the redesign. Highly recommend!",
     rating: 5,
+    initials: "JC",
   },
   {
     name: "Maria Gonzalez",
@@ -23,6 +25,7 @@ const testimonials = [
     niche: "Gym",
     text: "I was blown away by how quickly Alex understood our vision. The website is beautiful, loads incredibly fast, and our member sign-ups have increased significantly. Best investment we've made.",
     rating: 5,
+    initials: "MG",
   },
 ];
 
@@ -42,6 +45,18 @@ function StarRating({ rating }: { rating: number }) {
         </svg>
       ))}
     </div>
+  );
+}
+
+function QuoteIcon() {
+  return (
+    <svg
+      className="w-10 h-10 text-primary/20"
+      fill="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+    </svg>
   );
 }
 
@@ -72,15 +87,30 @@ export default function Testimonials() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: i * 0.15 }}
               viewport={{ once: true }}
-              className="bg-white/5 border border-white/10 rounded-2xl p-8 hover:border-primary/20 transition-all"
+              className="group"
             >
-              <StarRating rating={t.rating} />
-              <p className="text-muted leading-relaxed mt-4 mb-6">
-                &ldquo;{t.text}&rdquo;
-              </p>
-              <div>
-                <div className="font-heading font-bold">{t.name}</div>
-                <div className="text-sm text-muted">{t.role}</div>
+              <div className="glass glass-hover rounded-2xl p-8 h-full transition-all duration-300 relative overflow-hidden">
+                {/* Gradient glow on hover */}
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="relative">
+                  <QuoteIcon />
+                  <StarRating rating={t.rating} />
+                  <p className="text-muted leading-relaxed mt-4 mb-6">
+                    &ldquo;{t.text}&rdquo;
+                  </p>
+                  <div className="flex items-center gap-3 pt-4 border-t border-white/5">
+                    {/* Avatar */}
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-xs font-bold text-white shrink-0">
+                      {t.initials}
+                    </div>
+                    <div>
+                      <div className="font-heading font-bold text-sm">
+                        {t.name}
+                      </div>
+                      <div className="text-xs text-muted">{t.role}</div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </motion.div>
           ))}

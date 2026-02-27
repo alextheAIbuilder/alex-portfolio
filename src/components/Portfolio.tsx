@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 const projects = [
   {
@@ -59,6 +60,11 @@ const projects = [
   },
 ];
 
+function getScreenshotUrl(siteUrl: string) {
+  const domain = siteUrl.replace("https://", "");
+  return `https://image.thum.io/get/width/600/crop/400/https://${domain}`;
+}
+
 export default function Portfolio() {
   return (
     <section id="work" className="py-32 relative">
@@ -76,6 +82,9 @@ export default function Portfolio() {
           <h2 className="font-heading text-4xl md:text-5xl font-bold">
             Recent <span className="gradient-text">Projects</span>
           </h2>
+          <p className="text-muted mt-4 max-w-xl mx-auto">
+            Real websites, real results. Click any project to see it live.
+          </p>
         </motion.div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -91,25 +100,39 @@ export default function Portfolio() {
               viewport={{ once: true }}
               className="group"
             >
-              <div className="relative overflow-hidden rounded-2xl border border-white/10 hover:border-primary/30 transition-all">
-                <div
-                  className={`aspect-[16/10] bg-gradient-to-br ${project.gradient} relative`}
-                >
-                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors" />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="font-heading text-2xl font-bold text-white/80 group-hover:text-white transition-colors text-center px-4">
-                      {project.name}
-                    </span>
-                  </div>
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity bg-black/50 flex items-center justify-center">
-                    <span className="bg-white text-background px-6 py-2 rounded-full text-sm font-medium transform translate-y-4 group-hover:translate-y-0 transition-transform">
-                      View Live ↗
+              <div className="relative overflow-hidden rounded-2xl border border-white/10 hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/5 hover:scale-[1.02]">
+                {/* Screenshot image */}
+                <div className="aspect-[3/2] relative overflow-hidden">
+                  {/* Gradient fallback behind image */}
+                  <div
+                    className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-30`}
+                  />
+                  <Image
+                    src={getScreenshotUrl(project.url)}
+                    alt={`${project.name} — ${project.niche} website`}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                    unoptimized
+                  />
+                  {/* Hover overlay */}
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/60 transition-all duration-300 flex items-center justify-center">
+                    <span className="bg-white text-background px-6 py-2.5 rounded-full text-sm font-medium opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 shadow-lg">
+                      View Live →
                     </span>
                   </div>
                 </div>
-                <div className="p-4 bg-white/5">
-                  <h3 className="font-heading font-bold">{project.name}</h3>
-                  <span className="text-sm text-muted">{project.niche}</span>
+                {/* Card footer */}
+                <div className="p-4 bg-white/5 backdrop-blur-sm flex items-center justify-between">
+                  <div>
+                    <h3 className="font-heading font-bold">{project.name}</h3>
+                    <span className="text-xs text-muted uppercase tracking-wider">
+                      {project.niche}
+                    </span>
+                  </div>
+                  <span className="text-muted group-hover:text-primary transition-colors text-lg">
+                    ↗
+                  </span>
                 </div>
               </div>
             </motion.a>

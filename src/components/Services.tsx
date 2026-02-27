@@ -10,6 +10,7 @@ const services = [
       "Built from scratch, fully unique. No templates, no compromises — just pixel-perfect sites tailored to your brand.",
     icon: "🌐",
     gradient: "from-primary to-purple-400",
+    price: "Starting from $1,500",
   },
   {
     title: "E-commerce",
@@ -17,6 +18,7 @@ const services = [
       "Shopify & custom stores that sell. Optimized checkout flows, product pages that convert, and seamless payment integrations.",
     icon: "🛒",
     gradient: "from-secondary to-cyan-300",
+    price: "Starting from $2,000",
   },
   {
     title: "3D/Interactive Sites",
@@ -24,6 +26,7 @@ const services = [
       "Immersive web experiences that captivate. Three.js animations, scroll-based interactions, and cutting-edge visuals.",
     icon: "✨",
     gradient: "from-accent to-yellow-300",
+    price: "Starting from $3,000",
   },
   {
     title: "Redesigns",
@@ -31,6 +34,7 @@ const services = [
       "Transform your outdated site into something modern. Fresh design, better UX, improved performance, and higher conversions.",
     icon: "🔄",
     gradient: "from-pink-500 to-rose-400",
+    price: "Starting from $1,000",
   },
 ];
 
@@ -90,7 +94,8 @@ export default function Services() {
             What I Do
           </p>
           <h2 className="font-heading text-4xl md:text-5xl font-bold">
-            Services That <span className="gradient-text">Deliver Results</span>
+            Services That{" "}
+            <span className="gradient-text">Deliver Results</span>
           </h2>
         </motion.div>
 
@@ -104,18 +109,27 @@ export default function Services() {
               viewport={{ once: true }}
             >
               <TiltCard>
-                <div className="group relative bg-white/5 border border-white/10 rounded-2xl p-8 h-full hover:border-primary/30 transition-all">
-                  <div
-                    className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-0 group-hover:opacity-5 rounded-2xl transition-opacity`}
-                  />
-                  <div className="relative">
-                    <span className="text-4xl mb-4 block">{service.icon}</span>
-                    <h3 className="font-heading text-xl font-bold mb-3">
-                      {service.title}
-                    </h3>
-                    <p className="text-muted leading-relaxed">
-                      {service.description}
-                    </p>
+                <div className="group relative overflow-hidden rounded-2xl h-full gradient-border">
+                  {/* Glass card */}
+                  <div className="relative glass glass-hover rounded-2xl p-8 h-full transition-all duration-300">
+                    {/* Gradient glow on hover */}
+                    <div
+                      className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-0 group-hover:opacity-[0.07] rounded-2xl transition-opacity duration-500`}
+                    />
+                    <div className="relative">
+                      <span className="text-4xl mb-4 block">
+                        {service.icon}
+                      </span>
+                      <h3 className="font-heading text-xl font-bold mb-3">
+                        {service.title}
+                      </h3>
+                      <p className="text-muted leading-relaxed mb-4">
+                        {service.description}
+                      </p>
+                      <p className="text-sm font-medium text-primary/80 group-hover:text-primary transition-colors">
+                        {service.price}
+                      </p>
+                    </div>
                   </div>
                 </div>
               </TiltCard>
