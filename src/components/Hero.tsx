@@ -1,9 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import dynamic from "next/dynamic";
 
-const Scene3D = dynamic(() => import("./Scene3D"), { ssr: false });
+
+import Scene3DWrapper from "./Scene3DWrapper";
 
 export default function Hero() {
   return (
@@ -11,7 +11,7 @@ export default function Hero() {
       id="hero"
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      <Scene3D />
+      <Scene3DWrapper />
 
       <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
         <motion.p
