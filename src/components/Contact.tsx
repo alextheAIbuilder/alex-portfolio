@@ -1,239 +1,85 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState } from "react";
 
 export default function Contact() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    projectType: "",
-    message: "",
-  });
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const subject = encodeURIComponent(
-      `New Project Inquiry: ${formData.projectType}`
-    );
-    const body = encodeURIComponent(
-      `Name: ${formData.name}\nEmail: ${formData.email}\nProject Type: ${formData.projectType}\n\nMessage:\n${formData.message}`
-    );
-    window.location.href = `mailto:alex@nexomateai.com?subject=${subject}&body=${body}`;
-  };
-
-  const inputClasses =
-    "w-full bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl px-4 py-3 text-foreground placeholder:text-muted/60 focus:outline-none focus:border-primary/50 focus:bg-white/[0.07] focus:shadow-[0_0_20px_rgba(139,92,246,0.1)] transition-all duration-300";
-
   return (
-    <section id="contact" className="py-32 relative">
-      <div className="max-w-5xl mx-auto px-6">
+    <section id="contact" className="relative py-32 md:py-44 px-6 md:px-12">
+      <div className="max-w-[1400px] mx-auto">
+        {/* Section header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          initial={{ width: 0 }}
+          whileInView={{ width: "100%" }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="hr-line mb-12"
+        />
+
+        <motion.span
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.2 }}
+          className="text-xs text-muted tracking-widest uppercase mb-16 block"
         >
-          <p className="text-secondary font-medium mb-4 tracking-widest uppercase text-sm">
-            Get In Touch
-          </p>
-          <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4">
-            Ready to Level Up Your{" "}
-            <span className="gradient-text">Online Presence?</span>
-          </h2>
-          <p className="text-muted text-lg">
-            Let&apos;s talk about your project and make it happen.
-          </p>
+          Contact
+        </motion.span>
+
+        <motion.h2
+          initial={{ y: 40, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="font-heading text-display font-bold"
+        >
+          Let&apos;s work
+          <br />
+          together.
+        </motion.h2>
+
+        <motion.div
+          initial={{ y: 30, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          className="mt-12 md:mt-16 space-y-6"
+        >
+          <a
+            href="mailto:alex@nexomateai.com"
+            className="block text-2xl md:text-4xl lg:text-5xl font-heading font-medium hover:text-accent transition-colors duration-300 link-hover"
+          >
+            alex@nexomateai.com
+          </a>
+
+          <a
+            href="https://github.com/alextheAIbuilder"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block text-lg md:text-xl text-muted hover:text-foreground transition-colors duration-300 link-hover"
+          >
+            github.com/alextheAIbuilder
+          </a>
         </motion.div>
 
-        <div className="grid lg:grid-cols-3 gap-8">
-          {/* Form — takes 2 cols */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            viewport={{ once: true }}
-            className="lg:col-span-2"
+        <motion.div
+          initial={{ y: 30, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+          className="mt-12"
+        >
+          <a
+            href="mailto:alex@nexomateai.com"
+            className="group inline-flex items-center gap-3 px-8 py-4 border border-border rounded-full text-foreground hover:border-accent hover:text-accent transition-all duration-300"
           >
-            <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-3xl blur-3xl" />
-              <form
-                onSubmit={handleSubmit}
-                className="relative glass rounded-3xl p-8 md:p-10 space-y-6"
-              >
-                <div className="grid sm:grid-cols-2 gap-6">
-                  <div>
-                    <label
-                      htmlFor="name"
-                      className="block text-sm font-medium mb-2 text-foreground/80"
-                    >
-                      Name
-                    </label>
-                    <input
-                      type="text"
-                      id="name"
-                      required
-                      value={formData.name}
-                      onChange={(e) =>
-                        setFormData({ ...formData, name: e.target.value })
-                      }
-                      className={inputClasses}
-                      placeholder="Your name"
-                    />
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="email"
-                      className="block text-sm font-medium mb-2 text-foreground/80"
-                    >
-                      Email
-                    </label>
-                    <input
-                      type="email"
-                      id="email"
-                      required
-                      value={formData.email}
-                      onChange={(e) =>
-                        setFormData({ ...formData, email: e.target.value })
-                      }
-                      className={inputClasses}
-                      placeholder="your@email.com"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label
-                    htmlFor="projectType"
-                    className="block text-sm font-medium mb-2 text-foreground/80"
-                  >
-                    Project Type
-                  </label>
-                  <select
-                    id="projectType"
-                    required
-                    value={formData.projectType}
-                    onChange={(e) =>
-                      setFormData({ ...formData, projectType: e.target.value })
-                    }
-                    className={`${inputClasses} appearance-none`}
-                  >
-                    <option value="" className="bg-background">
-                      Select a project type
-                    </option>
-                    <option value="Custom Website" className="bg-background">
-                      Custom Website
-                    </option>
-                    <option value="E-commerce" className="bg-background">
-                      E-commerce
-                    </option>
-                    <option
-                      value="3D/Interactive Site"
-                      className="bg-background"
-                    >
-                      3D / Interactive Site
-                    </option>
-                    <option value="Redesign" className="bg-background">
-                      Redesign
-                    </option>
-                    <option value="Other" className="bg-background">
-                      Other
-                    </option>
-                  </select>
-                </div>
-
-                <div>
-                  <label
-                    htmlFor="message"
-                    className="block text-sm font-medium mb-2 text-foreground/80"
-                  >
-                    Message
-                  </label>
-                  <textarea
-                    id="message"
-                    required
-                    rows={5}
-                    value={formData.message}
-                    onChange={(e) =>
-                      setFormData({ ...formData, message: e.target.value })
-                    }
-                    className={`${inputClasses} resize-none`}
-                    placeholder="Tell me about your project..."
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  className="w-full gradient-border rounded-xl bg-primary/20 hover:bg-primary/30 text-white py-4 font-medium transition-all hover:scale-[1.01] hover:shadow-lg hover:shadow-primary/10"
-                >
-                  Send Message
-                </button>
-              </form>
-            </div>
-          </motion.div>
-
-          {/* Sidebar CTA */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            viewport={{ once: true }}
-            className="flex flex-col gap-6"
-          >
-            {/* Book a call card */}
-            <div className="glass rounded-3xl p-8 text-center flex-1 flex flex-col justify-center">
-              <div className="text-4xl mb-4">📞</div>
-              <h3 className="font-heading text-xl font-bold mb-2">
-                Book a Free Call
-              </h3>
-              <p className="text-muted text-sm mb-6">
-                Prefer to talk? Let&apos;s hop on a quick call to discuss your
-                project.
-              </p>
-              <a
-                href="mailto:alex@nexomateai.com?subject=Book%20a%20Free%20Call"
-                className="gradient-border rounded-full bg-white/5 hover:bg-white/10 text-foreground px-6 py-3 font-medium transition-all hover:scale-105 inline-block text-sm"
-              >
-                Schedule a Call →
-              </a>
-            </div>
-
-            {/* Quick info */}
-            <div className="glass rounded-3xl p-8">
-              <div className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <span className="text-xl">⚡</span>
-                  <div>
-                    <p className="text-sm font-medium">Fast Response</p>
-                    <p className="text-xs text-muted">
-                      Usually responds within 2 hours
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <span className="text-xl">📧</span>
-                  <div>
-                    <p className="text-sm font-medium">Email</p>
-                    <a
-                      href="mailto:alex@nexomateai.com"
-                      className="text-xs text-secondary hover:underline"
-                    >
-                      alex@nexomateai.com
-                    </a>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <span className="text-xl">🌍</span>
-                  <div>
-                    <p className="text-sm font-medium">Available Worldwide</p>
-                    <p className="text-xs text-muted">Remote-first workflow</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        </div>
+            <span className="text-sm font-medium tracking-wide">
+              Send me a message
+            </span>
+            <span className="transition-transform duration-300 group-hover:translate-x-1">
+              →
+            </span>
+          </a>
+        </motion.div>
       </div>
     </section>
   );

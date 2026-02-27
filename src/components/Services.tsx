@@ -1,138 +1,88 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useRef, useState } from "react";
 
 const services = [
   {
     title: "Custom Websites",
-    description:
-      "Built from scratch, fully unique. No templates, no compromises — just pixel-perfect sites tailored to your brand.",
-    icon: "🌐",
-    gradient: "from-primary to-purple-400",
-    price: "Starting from $1,500",
+    price: "From $2,500",
+    description: "Bespoke designs built for performance and conversion.",
   },
   {
-    title: "E-commerce",
-    description:
-      "Shopify & custom stores that sell. Optimized checkout flows, product pages that convert, and seamless payment integrations.",
-    icon: "🛒",
-    gradient: "from-secondary to-cyan-300",
-    price: "Starting from $2,000",
+    title: "E-commerce Stores",
+    price: "From $3,500",
+    description: "Shopify & custom stores that drive revenue.",
   },
   {
-    title: "3D/Interactive Sites",
-    description:
-      "Immersive web experiences that captivate. Three.js animations, scroll-based interactions, and cutting-edge visuals.",
-    icon: "✨",
-    gradient: "from-accent to-yellow-300",
-    price: "Starting from $3,000",
+    title: "3D / Interactive",
+    price: "From $5,000",
+    description: "Immersive experiences with cutting-edge technology.",
   },
   {
-    title: "Redesigns",
-    description:
-      "Transform your outdated site into something modern. Fresh design, better UX, improved performance, and higher conversions.",
-    icon: "🔄",
-    gradient: "from-pink-500 to-rose-400",
-    price: "Starting from $1,000",
+    title: "Website Redesigns",
+    price: "From $1,500",
+    description: "Transform your existing site into something remarkable.",
   },
 ];
 
-function TiltCard({
-  children,
-  className,
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [transform, setTransform] = useState("");
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!ref.current) return;
-    const rect = ref.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    const rotateX = (y - centerY) / 15;
-    const rotateY = (centerX - x) / 15;
-    setTransform(
-      `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02,1.02,1.02)`
-    );
-  };
-
-  const handleMouseLeave = () => {
-    setTransform("");
-  };
-
-  return (
-    <div
-      ref={ref}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={{ transform, transition: "transform 0.15s ease-out" }}
-      className={className}
-    >
-      {children}
-    </div>
-  );
-}
-
 export default function Services() {
   return (
-    <section id="services" className="py-32 relative">
-      <div className="max-w-6xl mx-auto px-6">
+    <section className="relative py-32 md:py-44 px-6 md:px-12">
+      <div className="max-w-[1400px] mx-auto">
+        {/* Section header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          initial={{ width: 0 }}
+          whileInView={{ width: "100%" }}
           viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <p className="text-secondary font-medium mb-4 tracking-widest uppercase text-sm">
-            What I Do
-          </p>
-          <h2 className="font-heading text-4xl md:text-5xl font-bold">
-            Services That{" "}
-            <span className="gradient-text">Deliver Results</span>
-          </h2>
-        </motion.div>
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="hr-line mb-12"
+        />
 
-        <div className="grid sm:grid-cols-2 gap-6">
+        <motion.span
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.2 }}
+          className="text-xs text-muted tracking-widest uppercase mb-16 block"
+        >
+          What I Do
+        </motion.span>
+
+        <motion.h2
+          initial={{ y: 30, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="font-heading text-display font-bold mb-16"
+        >
+          Services
+        </motion.h2>
+
+        {/* Service grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
           {services.map((service, i) => (
             <motion.div
               key={service.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: i * 0.15 }}
+              initial={{ y: 30, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
               viewport={{ once: true }}
+              transition={{
+                delay: i * 0.1,
+                duration: 0.6,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+              className="service-card group flex items-start justify-between gap-4 px-0 md:px-6 first:md:pl-0"
             >
-              <TiltCard>
-                <div className="group relative overflow-hidden rounded-2xl h-full gradient-border">
-                  {/* Glass card */}
-                  <div className="relative glass glass-hover rounded-2xl p-8 h-full transition-all duration-300">
-                    {/* Gradient glow on hover */}
-                    <div
-                      className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-0 group-hover:opacity-[0.07] rounded-2xl transition-opacity duration-500`}
-                    />
-                    <div className="relative">
-                      <span className="text-4xl mb-4 block">
-                        {service.icon}
-                      </span>
-                      <h3 className="font-heading text-xl font-bold mb-3">
-                        {service.title}
-                      </h3>
-                      <p className="text-muted leading-relaxed mb-4">
-                        {service.description}
-                      </p>
-                      <p className="text-sm font-medium text-primary/80 group-hover:text-primary transition-colors">
-                        {service.price}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </TiltCard>
+              <div className="flex-1">
+                <h3 className="service-title font-heading text-xl md:text-2xl font-semibold transition-colors duration-300">
+                  {service.title}
+                </h3>
+                <p className="text-muted text-sm mt-2">{service.description}</p>
+                <p className="text-accent text-sm font-medium mt-3">
+                  {service.price}
+                </p>
+              </div>
+              <span className="arrow text-muted text-xl mt-1">→</span>
             </motion.div>
           ))}
         </div>
